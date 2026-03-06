@@ -14,8 +14,8 @@ ENV ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true
 WORKDIR /canvex
 COPY scaffold/ ./scaffold/
 
-#### Pre-install node_modules inside the image at build time
-# RUN cd /canvex/scaffold && npm install
+# Pre-install node_modules inside the image at build time
+RUN cd /canvex/scaffold && npm install
 
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh

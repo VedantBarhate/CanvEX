@@ -22,8 +22,8 @@ sed -i "s/canvex-test/$APP_NAME/g" index.html
 sed -i "s/\"productName\": \"$SAFE_NAME\"/\"productName\": \"$APP_NAME\"/" package.json
 
 ########################
-# echo ">>> Copying cached node_modules..."
-# cp -r /canvex/scaffold/node_modules /build/app/node_modules
+echo ">>> Copying cached node_modules..."
+cp -r /canvex/scaffold/node_modules /build/app/node_modules
 
 #########################
 
@@ -32,9 +32,9 @@ echo ">>> Installing dependencies..."
 npm install
 
 ########################
-# # Detect and install any missing deps from App.jsx imports
-# echo ">>> Detecting dependencies from App.jsx..."
-# npm run detect-deps
+# Detect and install any missing deps from App.jsx imports
+echo ">>> Detecting dependencies from App.jsx..."
+npm run detect-deps
 #########################
 
 # Init tailwind config

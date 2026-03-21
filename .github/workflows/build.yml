@@ -12,6 +12,11 @@ jobs:
       - name: Setup workspace
         run: mkdir -p /tmp/canvex/input /tmp/canvex/output
 
+      - name: Debug payload
+        run: |
+          echo "App name: ${{ github.event.client_payload.app_name }}"
+          echo "Code length: ${{ github.event.client_payload.code }}" | wc -c
+
       - name: Write App.jsx from payload
         run: |
           mkdir -p /tmp/canvex/input

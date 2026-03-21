@@ -15,7 +15,7 @@ jobs:
       - name: Write App.jsx from payload
         run: |
           mkdir -p /tmp/canvex/input
-          printf '%s' "$APP_CODE" > /tmp/canvex/input/App.jsx
+          echo "$APP_CODE_B64" | base64 -d > /tmp/canvex/input/App.jsx
           echo ">>> App.jsx written successfully"
           wc -c /tmp/canvex/input/App.jsx
 

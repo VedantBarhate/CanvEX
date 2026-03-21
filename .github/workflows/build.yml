@@ -14,11 +14,10 @@ jobs:
 
       - name: Write App.jsx from payload
         run: |
-          python3 -c "
-          import json, sys
-          code = json.loads(sys.argv[1])
-          open('/tmp/canvex/input/App.jsx', 'w').write(code)
-          " '${{ toJSON(github.event.client_payload.code) }}'
+          mkdir -p /tmp/canvex/input
+          printf '%s' "$APP_CODE" > /tmp/canvex/input/App.jsx
+          echo ">>> App.jsx written successfully"
+          wc -c /tmp/canvex/input/App.jsx
 
       - name: Pull CanvEx Docker image
         run: docker pull vedantbarhate/canvex:v1.2

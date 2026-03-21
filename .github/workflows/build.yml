@@ -20,7 +20,10 @@ jobs:
       - name: Write App.jsx from payload
         run: |
           mkdir -p /tmp/canvex/input
-          echo "$APP_CODE_B64" | base64 -d > /tmp/canvex/input/App.jsx
+          cat << 'EOF' > /tmp/canvex/input/code.b64
+          ${{ github.event.client_payload.code }}
+          EOF
+          base64 -d /tmp/canvex/input/code.b64 > /tmp/canvex/input/App.jsx
           echo ">>> App.jsx written successfully"
           wc -c /tmp/canvex/input/App.jsx
 

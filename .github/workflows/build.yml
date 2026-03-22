@@ -38,9 +38,15 @@ jobs:
             -e APP_NAME="${{ github.event.client_payload.app_name }}" \
             vedantbarhate/canvex:v1.2
 
+      - name: Find and upload .exe artifact
+        run: |
+          EXE_PATH=$(find /tmp/canvex/output -name "*.exe" | head -n 1)
+          echo "Found exe: $EXE_PATH"
+          cp "$EXE_PATH" /tmp/canvex/canvex-app.exe
+
       - name: Upload .exe artifact
         uses: actions/upload-artifact@v4
         with:
           name: canvex-output
-          path: /tmp/canvex/output/**/*.exe
+          path: /tmp/canvex/canvex-app.exe
           retention-days: 1

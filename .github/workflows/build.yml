@@ -42,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: canvex-output
-          path: /tmp/canvex/output/
+          path: /tmp/canvex/output/**/*.exe
           retention-days: 1

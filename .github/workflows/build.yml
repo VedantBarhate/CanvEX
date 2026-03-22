@@ -12,6 +12,25 @@ jobs:
       - name: Setup workspace
         run: mkdir -p /tmp/canvex/input /tmp/canvex/output
 
+      - name: Cache Docker image
+        id: cache-docker
+        uses: actions/cache@v4
+        with:
+          path: /tmp/canvex-image
+          key: canvex-docker-v1.2
+
+      - name: Load or pull CanvEx Docker image
+        run: |
+          if [ -f /tmp/canvex-image/canvex.tar ]; then
+            echo ">>> Loading cached Docker image..."
+            docker load -i /tmp/canvex-image/canvex.tar
+          else
+            echo ">>> Pulling Docker image..."
+            docker pull vedantbarhate/canvex:v1.2
+            mkdir -p /tmp/canvex-image
+            docker save vedantbarhate/canvex:v1.2 -o /tmp/canvex-image/canvex.tar
+          fi
+
       - name: Debug payload
         run: |
           echo "App name: ${{ github.event.client_payload.app_name }}"
@@ -26,9 +45,6 @@ jobs:
           base64 -d /tmp/canvex/input/code.b64 > /tmp/canvex/input/App.jsx
           echo ">>> App.jsx written successfully"
           wc -c /tmp/canvex/input/App.jsx
-
-      - name: Pull CanvEx Docker image
-        run: docker pull vedantbarhate/canvex:v1.2
 
       - name: Run CanvEx pipeline
         run: |
